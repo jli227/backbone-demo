@@ -1,0 +1,88 @@
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+
+body {
+    background-image: url('../assets/background.jpg');
+    background-size: cover;
+    font-family: "Berlin Sans FB", sans-serif;
+    font-size: 20px;
+}
+
+header {
+    height: 2em;
+}
+
+nav {
+    position: fixed;
+    background-color: #BBB;
+    font-variant: small-caps;
+    width: 100%;
+    z-index: 1;
+}
+
+nav ul {
+    margin-left: 15px;
+    padding-left: 0;
+    margin-bottom: 0;
+    display: inline-block;
+}
+
+nav li {
+    display: inline-block;
+    padding: 0.5em;
+}
+
+nav a {
+    color: #000;
+    text-decoration: none;
+}
+
+.intro {
+    width: 50%;
+    display: block;
+    margin: auto;
+}
+
+form, .intro {
+    background-color: rgba(200, 100, 50, 0.9);
+    padding: 20px;
+    text-align: center;
+    border-radius: 50px;
+    margin-top: 10%;
+}
+
+.form {
+    width: 50%;
+    display: block;
+    margin: auto;
+}
+
+.form-control {
+    margin-top: 5px;
+}
+
+.buttons {
+    margin-top: 50px;
+}
+
+#introImage {
+    width: 30%;
+}
+
+#userInfo {
+    font-size: 25px;
+    display: none;
+}
+
+#wrongUser {
+    font-size: 14px;
+}
+
+#game-canvas {
+    display: block;
+    margin: 10% auto;
+}
+
+.inline-block {
+    display: inline-block !important;
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width = device-width, initial-scale = 1">
+        <title>Backbone Demo</title>
+
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+
+    <body>
+        <header>
+
+        </header>
+
+        <main>
+
+        </main>
+        <!-- for the game -->
+        <script src="https://code.createjs.com/easeljs-0.8.1.min.js"></script>
+
+        <!-- for records and structure -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
+        <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/backbonefire/0.5.1/backbonefire.min.js"></script>
+
+        <script type="text/template" id="nav-template">
+            <nav>
+                <ul>
+                    <li id="userInfo" class="btn"></li>
+                    <li><a href="#/home">Home</a></li>
+                    <li><a href="#/play">Play Game</a></li>
+                    <li><a href="#/scores">Top Scores</a></li>
+                    <li id="account"><a href="#">Login</a></li>
+                </ul>
+            </nav>
+        </script>
+
+        <script type="text/template" id="home-template">
+            <div class="intro">
+                <h1>Welcome to Clicker!</h1>
+
+                <img id="introImage" src="assets/intro.png"/>
+
+                <br/>
+
+                <p>How fast can you react? Try clicking "Play Game" to find out! Click your way to the top.
+                    All you have to do is click on the circles as they appear! Different colors give
+                    different amounts of points; they only appear for a certain amount of time. Happy clicking!</p>
+            </div>
+        </script>
+
+        <script type="text/template" id="login-template">
+            <div class="form">
+                <form id="login" class="form-horizontal">
+                    <h2>Please tell me your name!</h2>
+                    <br/>
+
+                    <div class="form-group">
+                        <label for="username" class="col-sm-5 control-label">Name: </label>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control col-sm-3" name="username" placeholder="Name" id="username"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group buttons">
+                        <button id="btnLogin" type="submit" class="btn btn-primary" disabled="disabled">Play Game</button>
+                    </div>
+                </form>
+            </div>
+        </script>
+
+        <script type="text/template" id="game-template">
+            <canvas id="game-canvas" width="800" height="500">
+                Sorry your browser isn't current enough to play this game.
+                Try installing the latest version of
+                <a href="https://www.google.com/chrome/">Google's Chrome browser</a>!
+            </canvas>
+        </script>
+
+        <script type="text/template" id="scores-template">
+            <h2>Top Scores</h2>
+            <% for(var score in scores) { %>
+                <li>
+                    <p class="user"><%= score.username %></p>
+                    <p class="score"><%= score.score %></p>
+                </li>
+            <% } %>
+        </script>
+
+        <script src="scripts/app.js"></script>
+    </body>
+</html>
