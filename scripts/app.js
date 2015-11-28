@@ -2,6 +2,7 @@ $(function() {
     'use strict';
 
     var currentUser = 'anonymous';
+
     var Score = Backbone.Model.extend({
         defaults: {
             score: 0,
@@ -9,9 +10,20 @@ $(function() {
         }
     });
 
+    // firebase collection of top scores
+    var Scores = Backbone.Firebase.Collection.extend({
+        model: Score,
+        url: 'https://backbone-demonstration.firebaseio.com/scores'
+    });
+
+    var scores = new Scores();
+
     var NavigatorView = Backbone.View.extend({
         events: {
-            'click #wrongUser' : 'reset'
+            'click #wrongUser' : 'reset',
+            'click #home' : 'navigate',
+            'click #play' : 'navigate',
+            'click #account' : 'navigate'
         },
         initialize: function() {
             $('header').html(this.el);
@@ -26,11 +38,13 @@ $(function() {
             $('#account').show();
             $('#userInfo').hide();
             window.location.reload();
+        },
+        navigate: function(option) {
+            router.navigate('#/' + option.currentTarget.id);
         }
     });
 
     var HomeView = Backbone.View.extend({
-        tagName: 'div',
         initialize: function() {
             $('main').html(this.el);
             this.render();
@@ -41,7 +55,6 @@ $(function() {
     });
 
     var LoginView = Backbone.View.extend({
-        tagName: 'div',
         events: {
             'submit #login' : 'setUser',
             'keyup #username' : 'check'
@@ -150,7 +163,7 @@ $(function() {
                     stage.addChild(new createjs.Text("User: " + currentUser, "20px 'Berlin Sans FB', Times", "#000").set({x: 20, y: 60}));
                 gameState.balls.forEach(function(ball) {
                     if (ball.duration > 0) {
-                        stage.addChild(new createjs.Shape()).graphics.f(ball.color).drawCircle(ball.left - ball.size / 2, ball.top - ball.size / 2, ball.size);
+                        stage.addChild(new createjs.Shape()).graphics.f(ball.color).drawCircle(ball.left - ball.size, ball.top - ball.size, ball.size);
                         ball.duration -= 16;
                     } else {
                         gameState.balls.splice(gameState.balls.indexOf(ball), 1);
@@ -171,6 +184,7 @@ $(function() {
                     gameState.difficulty -= 0.025;
                     gameState.changeDifficulty = performance.now();
                 }
+
                 if (gameState.lives <= 0) {
                     stage.removeAllChildren();
                     stage.addChild(new createjs.Shape()).graphics.f("DeepSkyBlue").drawRoundRect(0, 0, stage.width, stage.height, 50);
@@ -180,10 +194,11 @@ $(function() {
                         .set({x: stage.width / 2 - 50, y: stage.height / 2 - 90}));
                     stage.addChild(new createjs.Text("Click anywhere to play again!", "20px 'Berlin Sans FB', Times", "#000")
                         .set({x: stage.width / 2 - 125, y: stage.height / 2 + 50}));
-                    scores.add({
-                        score : gameState.score,
-                        username : currentUser
-                    });
+                    if (gameState.scores > 0)
+                        scores.add({
+                            score : gameState.score,
+                            username : currentUser
+                        });
                     createjs.Ticker.removeEventListener('tick', animate);
                     canvas.removeEventListener('click', checkClick);
                     canvas.addEventListener('click', startGame);
@@ -215,7 +230,7 @@ $(function() {
     });
 
     var ScoresView = Backbone.View.extend({
-        tagName: 'ol',
+        tagName: 'div',
         initialize: function() {
             $('main').html(this.el);
             this.render();
@@ -228,6 +243,7 @@ $(function() {
     var Router = Backbone.Router.extend({
         routes: {
             '': 'login',
+            'account': 'login',
             'home': 'home',
             'play': 'play',
             'scores' : 'scores'
@@ -253,21 +269,14 @@ $(function() {
         }
     });
 
-    // firebase collection of top scores
-    var Scores = Backbone.Firebase.Collection.extend({
-        model: Score,
-        url: 'https://backbone-demonstration.firebaseio.com/scores'
-    });
-
     var nav = new NavigatorView();
     var router = new Router();
     Backbone.history.start();
-    var scores = new Scores();
 
     if (localStorage.getItem('clickerCurrentUser')) {
         currentUser = localStorage.getItem('clickerCurrentUser');
         $('#userInfo').show().html('Hi ' + currentUser + '! <p id=\'wrongUser\'>(Not you?)</p>').addClass('inline-block');
-        $('#account').hide();
+        $('#acunt').hide();
         $('#changeAccount').show();
     }
 });

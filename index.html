@@ -30,10 +30,10 @@
             <nav>
                 <ul>
                     <li id="userInfo" class="btn"></li>
-                    <li><a href="#/home">Home</a></li>
-                    <li><a href="#/play">Play Game</a></li>
-                    <li><a href="#/scores">Top Scores</a></li>
-                    <li id="account"><a href="#">Login</a></li>
+                    <li id="home" class="btn btn-default">Home</li>
+                    <li id="play" class="btn btn-default">Play Game</li>
+                    <!--<li><a href="#/scores">Top Scores</a></li>-->
+                    <li id="account" class="btn btn-default">Login</li>
                 </ul>
             </nav>
         </script>
@@ -47,8 +47,15 @@
                 <br/>
 
                 <p>How fast can you react? Try clicking "Play Game" to find out! Click your way to the top.
-                    All you have to do is click on the circles as they appear! Different colors give
-                    different amounts of points; they only appear for a certain amount of time. Happy clicking!</p>
+                    All you have to do is click on the circles as they appear! The game is over when you run out of lives.
+                    Different colors give different amounts of points; they only appear for a certain amount of time. Happy clicking!</p>
+
+                <ul>
+                    <li>Red: 1 point -- 3 lives penalty</li>
+                    <li>Purple: 2 points -- 2 lives penalty</li>
+                    <li>Green: 5 points -- 1 life penalty</li>
+                    <li>Blue: 10 points -- No penalty</li>
+                </ul>
             </div>
         </script>
 
@@ -80,15 +87,12 @@
             </canvas>
         </script>
 
-        <script type="text/template" id="scores-template">
-            <h2>Top Scores</h2>
-            <% for(var score in scores) { %>
-                <li>
-                    <p class="user"><%= score.username %></p>
-                    <p class="score"><%= score.score %></p>
-                </li>
-            <% } %>
-        </script>
+        <!--<script type="text/template" id="scores-template">-->
+            <!--<h2>Top Scores</h2>-->
+            <!--<ol id="scores">-->
+                <!--TBI -->
+            <!--</ol>-->
+        <!--</script>-->
 
         <script src="scripts/app.js"></script>
     </body>
