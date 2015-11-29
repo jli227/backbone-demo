@@ -3,7 +3,7 @@ Clicker utilizes CreateJS and Backbone.js in order to provide a simple clicking 
 
 ## What is it?
 
-Clicker is a single-page application that permits a user to specify a desired username, if desired, for the scoreboard that will be implemented in later updates, and play a simple canvas-designed game. The user must click on the different colored circles to gain points, and survive for as long as possible. Initially, the player will have 10 lives, and upon losing all his/her lives, the game uploads the score (associated with the username if specified) to Firebase. The smaller the circle, the faster it'll be and it'll be worth more points too! 
+Clicker is a single-page application that permits a user to specify a desired username, if desired, for the scoreboard that will be implemented in later updates, and play a simple canvas-designed game. The user must click on the different colored circles to gain points, and survive for as long as possible. Initially, the player will have 10 lives, and upon losing all his/her lives, the game uploads the score (associated with the username if specified) to Firebase. The smaller the circle, the faster it'll be and it'll be worth more points too! The top 100 scores can be viewed by going to the "Top Scores" page.
 
 ## What are the technologies used?
 
@@ -19,7 +19,7 @@ EaselJS is capable of drawing the fundamental components (i.e. shapes) and handl
 
 ## How to play the game
 
-All a user has to do in order to play the game is navigate to the URL ([Play here!](http://students.washington.edu/jli227/info343/backbone-demo/)) or download the files onto their local machine. There is no required additional download of tools or frameworks. However, in order for the scores to be successfully uploaded to Firebase, the player must have an active Internet connection. 
+All a user has to do in order to play the game is navigate to the URL ([Play here!](http://students.washington.edu/jli227/info343/backbone-demo/)) or download the files onto their local machine. There is no required additional download of tools or frameworks. However, in order for the scores to be successfully uploaded to Firebase, the player must have an active Internet connection.
 
 The user also has the option of swapping out the predefined designated Firebase URL if he/she would like access to his/her own set of scores. Users can do so by registering for an account at Firebase's [registration page](https://www.firebase.com/signup/)
 

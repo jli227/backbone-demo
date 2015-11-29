@@ -87,6 +87,23 @@ form, .intro {
     display: inline-block !important;
 }
 
-ul {
-    list-style-type: none;
+.scoresTable {
+    background-color: rgba(255, 255, 0, 0.8);
+    border-radius: 20px;
+    padding-top: 20px;
+    margin: 5% auto;
+    width: 50%;
+}
+
+table {
+    margin: auto;
+}
+
+td {
+    padding: 40px;
+    border-bottom: 1px solid black;
+}
+
+h2 {
+    text-align: center;
 }

@@ -2,7 +2,7 @@ $(function() {
     'use strict';
 
     var currentUser = 'anonymous';
-
+    var firebaseUrl = 'https://backbone-demonstration.firebaseio.com/scores';
     var Score = Backbone.Model.extend({
         defaults: {
             score: 0,
@@ -13,7 +13,7 @@ $(function() {
     // firebase collection of top scores
     var Scores = Backbone.Firebase.Collection.extend({
         model: Score,
-        url: 'https://backbone-demonstration.firebaseio.com/scores'
+        url: firebaseUrl
     });
 
     var scores = new Scores();
@@ -23,7 +23,8 @@ $(function() {
             'click #wrongUser' : 'reset',
             'click #home' : 'navigate',
             'click #play' : 'navigate',
-            'click #account' : 'navigate'
+            'click #account' : 'navigate',
+            'click #score' : 'navigate'
         },
         initialize: function() {
             $('header').html(this.el);
@@ -194,11 +195,14 @@ $(function() {
                         .set({x: stage.width / 2 - 50, y: stage.height / 2 - 90}));
                     stage.addChild(new createjs.Text("Click anywhere to play again!", "20px 'Berlin Sans FB', Times", "#000")
                         .set({x: stage.width / 2 - 125, y: stage.height / 2 + 50}));
-                    if (gameState.scores > 0)
+                    if (gameState.score > 0) {
+                        console.log(scores);
                         scores.add({
-                            score : gameState.score,
-                            username : currentUser
+                            score: gameState.score,
+                            username: currentUser
                         });
+                        console.log(scores)
+                    }
                     createjs.Ticker.removeEventListener('tick', animate);
                     canvas.removeEventListener('click', checkClick);
                     canvas.addEventListener('click', startGame);
@@ -230,13 +234,32 @@ $(function() {
     });
 
     var ScoresView = Backbone.View.extend({
-        tagName: 'div',
+        className: 'scoresTable',
         initialize: function() {
             $('main').html(this.el);
             this.render();
         },
         render: function() {
-            this.$el.html(_.template($('#scores-template').html(), scores));
+            this.$el.html(_.template($('#scores-template').html()));
+            scores.fetch({
+                success: function() {
+                    var rank = 1;
+                    var sorted = [];
+                    scores.forEach(function(score) {
+                        sorted.push({username : score.get('username'), score : score.get('score')});
+                    });
+                    sorted.splice(Math.min(sorted.length, 99));
+                    sorted.sort(function(a, b) {
+                        return b.score - a.score;
+                    }).forEach(function(score) {
+                        $('<tr/>', {
+                            class: 'scores',
+                            html: '<td>' + rank + '</td><td>' + score.username + '</td><td class="scoreLabel">' + score.score
+                        }).appendTo('#scores');
+                        rank++;
+                    })
+                }
+            });
         }
     });
 
@@ -246,7 +269,8 @@ $(function() {
             'account': 'login',
             'home': 'home',
             'play': 'play',
-            'scores' : 'scores'
+            'score' : 'score',
+            '*path' : 'default'
         },
         home: function() {
             this.loadView(new HomeView());
@@ -260,8 +284,11 @@ $(function() {
             else
                 this.loadView(new GameView());
         },
-        scores: function() {
+        score: function() {
             this.loadView(new ScoresView());
+        },
+        default: function() {
+            this.loadView(new HomeView());
         },
         loadView: function(view) {
             this.view && this.view.remove();
@@ -275,8 +302,9 @@ $(function() {
 
     if (localStorage.getItem('clickerCurrentUser')) {
         currentUser = localStorage.getItem('clickerCurrentUser');
-        $('#userInfo').show().html('Hi ' + currentUser + '! <p id=\'wrongUser\'>(Not you?)</p>').addClass('inline-block');
-        $('#acunt').hide();
+        $('#userInfo').show().html('Hi ' + currentUser + '! <p id=\'wrongUser\'>(Not you?)</p>')
+            .addClass('inline-block');
+        $('#account').hide();
         $('#changeAccount').show();
     }
 });
