@@ -93,8 +93,9 @@ $(function() {
             var balls = [
                 {color: "Red", size: 50, points: 1, duration: 5000, penalty: 3, velocity: 2},
                 {color: "Purple", size: 40, points: 2, duration: 4000, penalty: 2, velocity: 3},
-                {color: "Green", size: 30, points: 5, duration: 3000, penalty: 3, velocity: 4},
-                {color: "Blue", size: 20, points: 10, duration: 2000, penalty: 0, velocity: 5}
+                {color: "Green", size: 30, points: 5, duration: 3000, penalty: 1, velocity: 4},
+                {color: "Yellow", size: 25, points: 7, duration: 2500, penalty: 1, velocity: 5},
+                {color: "Blue", size: 20, points: 10, duration: 2000, penalty: 0, velocity: 6}
             ];
             stage.set({height: 500, width: 800});
             var gameState;
@@ -112,7 +113,7 @@ $(function() {
             };
 
             var newBall = function() {
-                var random = Math.round(Math.random() * 13);
+                var random = Math.round(Math.random() * 14);
                 var ball = balls[0];
                 if (random >= 8 && random <= 10)
                     ball = balls[1];
@@ -120,6 +121,8 @@ $(function() {
                     ball = balls[2];
                 else if (random == 13)
                     ball = balls[3];
+                else if (random == 14)
+                    ball = balls[4]
                 gameState.balls.push({
                     id: gameState.balls.length + Math.random() * 100,
                     left: Math.random() * (stage.width - ball.size * 2) + ball.size,
